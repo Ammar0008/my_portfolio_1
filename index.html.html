@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohammad Ammar Attar — Hybrid Tech Portfolio</title>
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+  <style>
+    :root {
+      --bg-dark: #0f0f14;
+      --bg-light: #f6f7fb;
+      --text-dark: #e9eef6;
+      --text-light: #0a0a0a;
+      --card-dark: rgba(255, 255, 255, 0.04);
+      --card-light: rgba(10, 10, 10, 0.04);
+      --accent: #00e6e6;
+      --accent-2: #0077ff;
+      --muted: #9aa4b2;
+      --ring: rgba(0, 230, 230, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(0, 230, 230, 0.15), transparent 40%),
+                  radial-gradient(1000px 500px at -10% -10%, rgba(0, 119, 255, 0.18), transparent 40%),
+                  var(--bg-dark);
+      color: var(--text-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background 0.3s, color 0.3s;
+      padding: 24px;
+    }
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: 980px; margin: 0 auto; }
+
+    .card {
+      border: 1.5px solid var(--ring);
+      background: var(--card-dark);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      backdrop-filter: blur(6px);
+    }
+    body.light .card {
+      background: var(--card-light);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      border-color: rgba(0,0,0,0.08);
+    }
+
+    h1, h2, h3 { font-family: 'Press Start 2P', cursive; letter-spacing: .5px; }
+    h1 { font-size: 28px; margin: 0 0 12px; color: var(--accent); }
+    h2 { font-size: 20px; margin: 0 0 16px; }
+    h3 { font-size: 16px; margin: 0 0 8px; color: var(--accent); }
+
+    .hero { text-align: center; padding: 40px 16px; }
+    .hero p { margin: 8px 0; font-size: 16px; color: var(--muted); }
+    .typed-text { font-weight: 700; color: var(--accent-2); }
+
+    .grid { display: grid; gap: 20px; }
+    @media (min-width: 900px) {
+      .grid-2 { grid-template-columns: 1fr 1fr; }
+      .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* Badges */
+    .badges { display: flex; flex-wrap: wrap; gap: 10px; }
+    .badge {
+      padding: 8px 12px;
+      border: 1px solid var(--ring);
+      border-radius: 999px;
+      background: rgba(0,0,0,0.25);
+      font-size: 12px;
+    }
+    body.light .badge { background: rgba(255,255,255,0.6); }
+
+    /* Stats */
+    .stat { margin: 12px 0; }
+    .stat-label { font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .bar { height: 12px; background: rgba(255,255,255,0.08); border-radius: 8px; overflow: hidden; }
+    .fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width 2s; }
+    body.light .bar { background: rgba(0,0,0,0.06); }
+
+    /* Quests */
+    .quest { padding: 14px; background: rgba(0,0,0,0.35); border-left: 4px solid var(--accent); border-radius: 12px; }
+    body.light .quest { background: rgba(255,255,255,0.8); }
+
+    /* Project list */
+    .proj { padding: 14px; border: 1px dashed var(--ring); border-radius: 12px; }
+
+    /* Buttons */
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 10px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #001018; border: none; padding: 10px 14px; border-radius: 10px;
+      font-weight: 700; cursor: pointer; box-shadow: 0 6px 16px rgba(0, 119, 255, 0.35);
+    }
+    .btn.secondary { background: transparent; color: inherit; border: 1.5px solid var(--ring); box-shadow: none; }
+    .btn:hover { transform: translateY(-1px); }
+
+    footer { text-align: center; margin: 26px 0 10px; color: var(--muted); font-size: 14px; }
+
+    /* Toggle */
+    .toggle {
+      position: fixed; right: 20px; top: 20px; z-index: 50;
+      background: #0b1720; color: #d9fdff; border: 1px solid var(--ring);
+      padding: 8px 12px; border-radius: 10px; cursor: pointer;
+    }
+    body.light .toggle { background: #ffffff; color: #0a0a0a; border-color: rgba(0,0,0,0.12); }
+
+    /* Small helpers */
+    .muted { color: var(--muted); }
+    ul { margin: 0; padding-left: 18px; }
+  </style>
+</head>
+<body>
+  <button class="toggle" onclick="toggleTheme()">🌗 Toggle Mode</button>
+  <div class="container">
+
+    <!-- HERO -->
+    <section class="hero card">
+      <h1>🚀 Mohammad Ammar Attar</h1>
+      <p><span id="typed" class="typed-text"></span></p>
+      <div class="actions">
+        <a class="btn" href="https://github.com/Ammar0008" target="_blank" rel="noopener">🧑‍💻 GitHub</a>
+        <a class="btn secondary" href="https://www.linkedin.com/in/ammar-attar-460346370" target="_blank" rel="noopener">🔗 LinkedIn</a>
+        <a class="btn secondary" href="mailto:ammarattar436@gmail.com">✉️ Email</a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="card">
+      <h2>About Me</h2>
+      <p>
+        I’m a Computer Science graduate passionate about blending development, cloud technologies, and business insights into a
+        hybrid skillset. From building backend apps in Python to experimenting with cloud platforms, I enjoy learning new
+        technologies and creating impactful projects. Currently, I’m exploring cloud computing and DevOps tools to grow into a
+        versatile tech professional.
+      </p>
+      <div class="badges" aria-label="Key interests">
+        <span class="badge">Python & Django</span>
+        <span class="badge">Flask</span>
+        <span class="badge">Cloud & DevOps (Learning)</span>
+        <span class="badge">Linux</span>
+        <span class="badge">SQL & PostgreSQL</span>
+      </div>
+    </section>
+
+    <!-- SKILLS / STATS -->
+    <section class="card">
+      <h2>Player Stats</h2>
+      <div class="stat">
+        <div class="stat-label">Python / Django</div>
+        <div class="bar"><div class="fill" data-skill="85"></div></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Flask</div>
+        <div class="bar"><div class="fill" data-skill="70"></div></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Linux</div>
+        <div class="bar"><div class="fill" data-skill="65"></div></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Cloud & DevOps (Learning)</div>
+        <div class="bar"><div class="fill" data-skill="45"></div></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Business Dev & SEO (Basics)</div>
+        <div class="bar"><div class="fill" data-skill="35"></div></div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE (QUESTS) -->
+    <section class="card">
+      <h2>Quests Completed</h2>
+      <div class="grid">
+        <div class="quest">
+          <h3>Backend Web Development Intern (University-Approved)</h3>
+          <p class="muted">Jan 2024 – Jul 2024 · 7 months</p>
+          <p>Built a <strong>Car Dealer Web App</strong> using Python (Django) and PostgreSQL. Implemented REST APIs, search & filter,
+             and handled debugging/deployment basics on Linux with Git.</p>
+        </div>
+        <div class="quest">
+          <h3>Python Flask Developer (Internship Project)</h3>
+          <p class="muted">2024 – 2025 · Few months</p>
+          <p>Developed and deployed a <strong>Gym Management System</strong> with Flask and PostgreSQL, hosted on the <strong>Render</strong>
+             cloud platform. Focus on authentication, membership features, and hands-on cloud hosting.</p>
+        </div>
+      </div>
+      <p class="muted" style="margin-top:8px;">Combined practical experience ≈ <strong>~1 year</strong> (2023–2025).</p>
+    </section>
+
+    <!-- PROJECTS (INVENTORY) -->
+    <section class="card">
+      <h2>Inventory (Projects)</h2>
+      <div class="grid grid-2">
+        <div class="proj">
+          <h3>Car Dealer Web App (Django)</h3>
+          <p>Dealer inventory management, customer search/filter, REST API. Built during the 7‑month internship.</p>
+          <div class="actions">
+            <!-- Replace # with your repo URL when ready -->
+            <a class="btn secondary" href="#" target="_blank" rel="noopener">🔗 GitHub Repo</a>
+          </div>
+        </div>
+        <div class="proj">
+          <h3>Gym Management System (Flask)</h3>
+          <p>Members, plans, authentication, payments (optional). Deployed to Render for real-world hosting practice.</p>
+          <div class="actions">
+            <!-- Replace # with your Render live URL and repo URL -->
+            <a class="btn" href="#" target="_blank" rel="noopener">▶️ Live Demo</a>
+            <a class="btn secondary" href="#" target="_blank" rel="noopener">🔗 GitHub Repo</a>
+          </div>
+        </div>
+        <div class="proj">
+          <h3>Cloud Demo (Coming Soon)</h3>
+          <p>Experimenting with AWS + simple CI/CD (GitHub Actions) to deploy a containerized app.</p>
+          <div class="actions">
+            <span class="btn secondary" aria-disabled="true">🛠️ In Progress</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS / BADGES -->
+    <section class="card">
+      <h2>Badges Earned</h2>
+      <div class="badges">
+        <span class="badge">Python (Certified)</span>
+        <span class="badge">Django</span>
+        <span class="badge">Linux Beginner</span>
+        <span class="badge">Business Dev & SEO</span>
+        <span class="badge">Cloud (in‑progress)</span>
+      </div>
+    </section>
+
+    <!-- RESUMES -->
+    <section class="card">
+      <h2>Resumes</h2>
+      <div class="actions">
+        <a class="btn" href="Ammar_techsupport_resume_v1_1.pdf" target="_blank" rel="noopener">📄 Tech Support Resume</a>
+        <a class="btn secondary" href="Mohammad_Ammar_resume_1_12_.pdf" target="_blank" rel="noopener">📄 Developer Resume</a>
+      </div>
+      <p class="muted" style="margin-top:10px;">Place both PDF files in the same GitHub repository as this <code>index.html</code>.</p>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="card">
+      <h2>Contact</h2>
+      <ul>
+        <li>📧 Email: <a href="mailto:ammarattar436@gmail.com">ammarattar436@gmail.com</a></li>
+        <li>🔗 LinkedIn: <a href="https://www.linkedin.com/in/ammar-attar-460346370" target="_blank" rel="noopener">/in/ammar-attar-460346370</a></li>
+        <li>🧑‍💻 GitHub: <a href="https://github.com/Ammar0008" target="_blank" rel="noopener">github.com/Ammar0008</a></li>
+      </ul>
+    </section>
+
+    <footer>Designed with ❤️ — Leveling up every day 🚀</footer>
+  </div>
+
+  <script>
+    // Typed.js headline
+    const typed = new Typed('#typed', {
+      strings: [
+        'Exploring Code, Cloud & Creativity',
+        'Building a Hybrid Tech Skillset',
+        'Python • Django • Flask • Linux',
+        'Cloud & DevOps Learner'
+      ],
+      typeSpeed: 45,
+      backSpeed: 28,
+      backDelay: 900,
+      loop: true
+    });
+
+    // Animate stat bars on view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const fill = e.target.querySelector('.fill');
+          if (fill) fill.style.width = fill.dataset.skill + '%';
+        }
+      });
+    }, { threshold: 0.55 });
+    document.querySelectorAll('.stat').forEach((el) => observer.observe(el));
+
+    // Theme toggle
+    function toggleTheme() { document.body.classList.toggle('light'); }
+    window.toggleTheme = toggleTheme;
+  </script>
+</body>
+</html>
